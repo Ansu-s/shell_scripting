@@ -226,9 +226,69 @@ template=${template//\{\{day\}\}/$day}
 echo "$template" > resolved_template.txt
 echo "Template resolved and saved to resolved_template.txt"
 ```
+### GREP , SED and AWK :
+
+Grep is Global Regular Expression Print it searches for a patter in the given file and how the results in a highlighted manner. 
+SED is a powerful text editor which is used to perform basic transformations on the stream of input text.
+ some common sed commands are  "/old_text/new_text/g","/pattern/d","=","/pattern/p" etc.
+Awk is a text editor it is very versatile it is used to manipulate the data present in different fields. We can also make custom functions as per aou necessity.
+
+     
+    grep "patten" file_name.txt
+    grep "hello" myfile.txt
+    
+    sed "=" myfile.txt
+    sed "/this/d" mytext.txt"
+    
+    awk '{print $1}' data.txt
+    awk 'function double(x) { return x * 2 } {print double($3)}' mydata.txt
+
+### Processes in Linux :
+To list all the processes running in the bash shell we use "ps aux" command. top,htop,pstree,ps axjf
+to get the names of the process we can filter the process by providing a flag to the ps command.
+The pgrep command is designed specifically for finding process IDs by name.
+ps command to list running processes and then use grep to search for a specific process by name.
+pgrep is used to find the process ID by it name.
+
+To find the port numbers of a process we can use he ss , netstat or lsof (the listening states) command these will get the port number based on either of their proces name or ID
+
+To kill a process we use the kill command. -9 flag is used along with the kill command to kill the process forcebly. To find the os processes we use the -e flag along with the ps command.
 
 
+    ps aux
+    top
+    htop
+    pstree
+    ps axjf
 
+    ps -e -o comm
+    pgrep polkitd
+    
+    lsof -i -n -P
+    lsof -i -n -P -p 142
+    ss -tuln | grep :80
+     
+    ps -e
+    kill 143
+    kill -9 143
 
+### Searching in Linux :
 
+To search recursively in folder or directory we can use grep to match the patter. We can also use ag to match expressions if silver-searcher is installed in the system for more efficiency.
+We can also use the find command and provide it with some parameters to get the recursive search done.
+  
+    grep -r 'i' /mnt/d/myfolder
+    ag 'i' /mnt/d/myfolder
+    find /mnt/d/myfolder -type f -exec grep -l 'i' {} \;
 
+### Head and Tail :
+
+Head is used to show the beginning part of the file. It has -n flag which is used to specify the number of lines we want to show instead of showing the whole file.
+Similarly,tail is used to show the end part of the file. It has the -n flag which is also used to tell how many number of lines to display from the end. Apart from this it has -f flag which is used to continuously display the new line added to the file this is mostly used in case of monitoring the log files.
+
+    head mytext.txt
+    head -n 15 mytext.txt
+    tail mytext.txt
+    tail -n 15 mytext.txt
+    tail -f /myfolder/myfile
+    long-running-command | tail -n 10 -f
